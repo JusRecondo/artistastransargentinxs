@@ -1,6 +1,6 @@
 import { Oval } from "react-loader-spinner"
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <Oval
       visible={true}
@@ -23,4 +23,3 @@ const Loader = () => {
   )
 }
 
-export default Loader

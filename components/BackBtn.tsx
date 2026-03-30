@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation"
 import { FaArrowLeft } from "react-icons/fa"
 
-export default function BackBtn() {
+export const BackBtn = () => {
   const router = useRouter()
 
   return (

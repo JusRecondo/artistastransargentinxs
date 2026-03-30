@@ -8,7 +8,7 @@ interface Props {
   nombre: string;
 }
 
-export default function ArtistImage({ src, alt, nombre }: Props) {
+export const ArtistImage = ({ src, alt, nombre }: Props) => {
   const [error, setError] = useState(false);
 
   const initials = nombre

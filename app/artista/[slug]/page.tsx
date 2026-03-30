@@ -1,8 +1,8 @@
 "use client"
 
-import ArtistImage from "@/components/ArtistImage"
-import BackBtn from "@/components/BackBtn"
-import Loader from "@/components/Loader"
+import { ArtistImage } from "@/components/ArtistImage"
+import { BackBtn } from "@/components/BackBtn"
+import { Loader } from "@/components/Loader"
 import { getArtists } from "@/lib/sheets"
 import { Artist } from "@/lib/types"
 import { useArtistStore } from "@/stores/artistsStore"

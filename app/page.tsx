@@ -2,7 +2,8 @@ import { getArtists } from "@/lib/sheets"
 import { shuffle } from "@/lib/utils"
 import { Artist } from "@/lib/types"
 import { ArtistGrid } from "@/components/ArtistsGrid"
-import Loader from "@/components/Loader"
+import { Loader } from "@/components/Loader"
+import { DrawerMenu } from "@/components/DrawerMenu"
 
 export default async function Home() {
   const artists: Artist[] = await getArtists()
@@ -10,6 +11,7 @@ export default async function Home() {
 
   return (
     <main className="px-3 md:px-6 py-6">
+      <DrawerMenu />
       
       <header className="mb-8">
         <h1 className="text-2xl md:text-4xl font-semibold">

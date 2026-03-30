@@ -1,13 +1,13 @@
 'use client'
 import { Artist } from "@/lib/types"
 import Link from "next/link"
-import ArtistImage from "./ArtistImage"
+import { ArtistImage } from "./ArtistImage"
 
 interface Props {
   artist: Artist
 }
 
-export function ArtistCard({ artist }: Props) {
+export const ArtistCard = ({ artist }: Props) => {
   return (
     <Link
       href={`/artista/${artist.slug}`}
