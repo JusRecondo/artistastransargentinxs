@@ -1,7 +1,7 @@
 import { Artist } from "./types"
 import { slugify, transformImageUrl } from "./utils"
 
-const SHEET_ID = process.env.ARTISTS_SPREADSHEET_ID
+const SHEET_ID = process.env.NEXT_PUBLIC_ARTISTS_SPREADSHEET_ID
 
 const SHEET_URL =
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`
@@ -46,13 +46,12 @@ function isValidArtist(a: Artist) {
 export async function getArtists(): Promise<Artist[]> {
   const res = await fetch(SHEET_URL, { cache: "no-store" })
   const text = await res.text()
-
   const json = JSON.parse(text.substring(47).slice(0, -2))
   const rows = json.table.rows
-
+  
   const artists: Artist[] = rows.map((row: any) => {
     const c = row.c || []
-
+    
     const id = cleanValue(c[11]?.v)
     const nombre = cleanValue(c[1]?.v)
     const pronombres = cleanValue(c[2]?.v)
@@ -62,6 +61,7 @@ export async function getArtists(): Promise<Artist[]> {
     const link1 = cleanValue(c[6]?.v)
     const link2 = cleanValue(c[7]?.v)
     const link3 = cleanValue(c[8]?.v)
+    const ubicacion = cleanValue(c[9]?.v)
     const visibleRaw = cleanValue(c[10]?.v)
 
     return {
@@ -80,6 +80,8 @@ export async function getArtists(): Promise<Artist[]> {
         : [],
 
       links: [link1, link2, link3].filter(Boolean) as string[],
+
+      ubicacion: ubicacion || "",
 
       visible:
         visibleRaw === true ||

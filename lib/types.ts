@@ -7,5 +7,6 @@ export interface Artist {
   presentacion: string
   disciplinas: string[]
   links: string[]
+  ubicacion: string
   visible: string
 }

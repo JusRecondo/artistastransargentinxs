@@ -53,7 +53,9 @@ export default function ArtistPage() {
 
           <p className="text-neutral-500 mt-1">{artist.pronombres}</p>
 
-          <p className="mt-6">{artist.presentacion}</p>
+          <p className="text-neutral-500 mt-1">{artist.ubicacion}</p>
+
+          <p className="mt-4">{artist.presentacion}</p>
 
           <div className="mt-6 flex flex-wrap gap-2">
             {artist.disciplinas.map((d: string) => (
