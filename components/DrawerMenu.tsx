@@ -9,15 +9,15 @@ import { FaSliders, FaX } from "react-icons/fa6"
 
 export function DrawerMenu() {
   const [open, setOpen] = useState(false)
-  const searchQuery = useSearchStore((state) => state.searchQuery);
-  const setSearchQuery = useSearchStore((state) => state.setSearchQuery);
+  const searchQuery = useSearchStore((state) => state.searchQuery)
+  const setSearchQuery = useSearchStore((state) => state.setSearchQuery)
   const setFilter = useSearchStore((state) => state.setFilter)
   const filter = useSearchStore((state) => state.filters.disciplina)
 
   const searchParams = useSearchParams()
-  const urlFilter = searchParams.get('disciplina') || ''
- 
-  useEffect(() => { 
+  const urlFilter = searchParams.get("disciplina") || ""
+
+  useEffect(() => {
     if (urlFilter) {
       setFilter("disciplina", urlFilter)
     } else {
@@ -26,20 +26,24 @@ export function DrawerMenu() {
   }, [urlFilter])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    setSearchQuery(e.target.value)
   }
 
   const handleChangeFilter = (filterName: string, value: string) => {
     if (value) {
-      const params = new URLSearchParams(searchParams);
-      params.set(filterName, value);
-      window.history.pushState(null, '', `?${params.toString()}`);
+      const params = new URLSearchParams(searchParams)
+      params.set(filterName, value)
+      window.history.pushState(null, "", `?${params.toString()}`)
     } else {
-      const params = new URLSearchParams(searchParams);
-      params.delete(filterName);
-      window.history.pushState(null, '', params.toString() ? `?${params.toString()}` : window.location.pathname);
+      const params = new URLSearchParams(searchParams)
+      params.delete(filterName)
+      window.history.pushState(
+        null,
+        "",
+        params.toString() ? `?${params.toString()}` : window.location.pathname,
+      )
     }
-    setFilter(filterName, value);
+    setFilter(filterName, value)
   }
 
   return (
@@ -78,27 +82,31 @@ export function DrawerMenu() {
           />
 
           {/* Filtros por disciplina */}
-          <label htmlFor="disciplina-filter">
-            Filtrar por disciplina
-          </label>
-            <select
+          <label htmlFor="disciplina-filter">Filtrar por disciplina</label>
+          <select
             id="disciplina-filter"
             value={filter || ""}
             onChange={(e) => handleChangeFilter("disciplina", e.target.value)}
             className="border-2 border-black p-2 hover:bg-gray-200 cursor-pointer font-bold focus:outline-none"
-            >
+          >
             <option value="">Todas</option>
             {disciplinas.map((disc) => (
               <option key={disc} value={disc}>
-              {disc}
+                {disc}
               </option>
             ))}
-            </select>
+          </select>
 
-            {/* FAQ */}
-            <h2 className="text-xl pb-1">
-              <Link href="/faq" onClick={() => setOpen(false)} className="hover:underline">Preguntas Frecuentes</Link>
-            </h2>
+          {/* FAQ */}
+          <h2 className="text-xl pb-1">
+            <Link
+              href="/faq"
+              onClick={() => setOpen(false)}
+              className="hover:underline"
+            >
+              Preguntas Frecuentes
+            </Link>
+          </h2>
         </div>
       </div>
     </>

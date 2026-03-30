@@ -5,6 +5,7 @@ import { Loader } from "@/components/Loader"
 import { DrawerMenu } from "@/components/DrawerMenu"
 import { shuffle } from "@/lib/utils"
 import Link from "next/link"
+import { FaArrowRight } from "react-icons/fa"
 
 export default async function Home() {
   const artists: Artist[] = await getArtists()
@@ -23,11 +24,11 @@ export default async function Home() {
           {" "}
           Sitio en construccion con data provisoria. Para sumarte al archivo
           completa el{" "}
-          <a href="https://forms.gle/kZC8AedsxaZWXko38" target="_blank" rel="noopener noreferrer">
-            Formulario de registro.
-          </a>{" "}
-          <Link href="/faq">
-            Ver Preguntas Frecuentes.
+          <a href="https://forms.gle/kZC8AedsxaZWXko38" className="home-link" target="_blank" rel="noopener noreferrer">
+            Formulario de registro
+          </a>.{" "}
+          <Link href="/faq" className="home-link inline-flex items-center gap-1">
+            <FaArrowRight /> Ver Preguntas Frecuentes
           </Link>
         </p>
       </header>

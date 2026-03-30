@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { Artist } from "@/lib/types"
 import Link from "next/link"
 import { ArtistImage } from "./ArtistImage"
@@ -14,7 +14,11 @@ export const ArtistCard = ({ artist }: Props) => {
       className="group block break-inside-avoid artist-card"
     >
       <div className="relative overflow-hidden rounded-xl h-full">
-        <ArtistImage src={artist.foto_url} alt={artist.nombre} nombre={artist.nombre} />
+        <ArtistImage
+          src={artist.foto_url}
+          alt={artist.nombre}
+          nombre={artist.nombre}
+        />
 
         <div className="absolute inset-0 bg-linear-to-t from-black/40 to-black/10 lg:opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition duration-300" />
 

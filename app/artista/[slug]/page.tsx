@@ -12,26 +12,28 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function ArtistPage() {
-  const { slug } = useParams();
-  const getArtistBySlug = useArtistStore((state) => state.getArtistBySlug);
-  const [artist, setArtist] = useState<Artist | undefined>(() => getArtistBySlug(slug!.toString()));
-  const [loading, setLoading] = useState(!artist);
+  const { slug } = useParams()
+  const getArtistBySlug = useArtistStore((state) => state.getArtistBySlug)
+  const [artist, setArtist] = useState<Artist | undefined>(() =>
+    getArtistBySlug(slug!.toString()),
+  )
+  const [loading, setLoading] = useState(!artist)
 
   useEffect(() => {
     if (!artist) {
       getArtists().then((allArtists) => {
-        const validArtists: Artist[] = allArtists.filter((a) => a.visible);
-        const store = useArtistStore.getState();
-        store.setArtists(validArtists); // setear en Zustand
-        setArtist(validArtists.find((a) => a.slug === slug!) || undefined);
-        setLoading(false);
-      });
+        const validArtists: Artist[] = allArtists.filter((a) => a.visible)
+        const store = useArtistStore.getState()
+        store.setArtists(validArtists)
+        setArtist(validArtists.find((a) => a.slug === slug!) || undefined)
+        setLoading(false)
+      })
     }
-  }, [artist, slug]);
+  }, [artist, slug])
 
-  if(loading) return <Loader />
+  if (loading) return <Loader />
 
-  if (!artist) return notFound();
+  if (!artist) return notFound()
 
   return (
     <main className="px-4 py-8 md:px-8">
@@ -45,7 +47,9 @@ export default function ArtistPage() {
         </div>
 
         <div className="flex flex-col justify-center">
-          <h1 className="text-3xl md:text-4xl font-semibold">{artist.nombre}</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold">
+            {artist.nombre}
+          </h1>
 
           <p className="text-neutral-500 mt-1">{artist.pronombres}</p>
 
@@ -80,5 +84,5 @@ export default function ArtistPage() {
         <BackBtn />
       </div>
     </main>
-  );
+  )
 }

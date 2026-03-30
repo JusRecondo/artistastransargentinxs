@@ -38,6 +38,11 @@ a.faq-link:hover {
   color: #fb597a;
 }
 
+a.home-link {
+  text-decoration: underline;
+}
+
+
 h1, h2, h3 {
   font-weight: 900;
   text-transform: uppercase;

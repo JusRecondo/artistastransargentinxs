@@ -1,45 +1,52 @@
-'use client'
-import { BackBtn } from "@/components/BackBtn";
-import { useState } from "react";
+"use client"
+import { BackBtn } from "@/components/BackBtn"
+import { useState } from "react"
 
 type FAQItem = {
-  question: string;
-  answer: string;
-  link?: { text: string; url: string };
-};
+  question: string
+  answer: string
+  link?: { text: string; url: string }
+}
 
 const faqs: FAQItem[] = [
   {
     question: "¿Cómo puedo sumarme al archivo?",
-    answer: "Para formar parte del archivo, ingresa y completa este formulario: ",
-    link: { text: "Formulario de registro", url: "https://forms.gle/kZC8AedsxaZWXko38" }
+    answer:
+      "Para formar parte del archivo, ingresa y completa este formulario: ",
+    link: {
+      text: "Formulario de registro",
+      url: "https://forms.gle/kZC8AedsxaZWXko38",
+    },
+  },
+  {
+    question: "¿Quienes pueden participar?",
+    answer:
+      "Personas de Argentina que forman parte de la comunidad travesti/trans/no binarie que practican alguna disciplina artistica, sin importar su nivel de experiencia o reconocimiento público.",
+  },
+  {
+    question: "¿Con qué frecuencia se actualiza el archivo?",
+    answer:
+      "El archivo se actualiza semanalmente a medida que se reciben nuevas inscripciones y se validan los datos.",
   },
   {
     question: "¿Puedo editar la información de un artista existente?",
     answer: "Sí, escribinos un email a: ",
-    link: { text: "Contacto", url: "mailto:jusrecondo@gmail.com" }
+    link: { text: "Contacto", url: "mailto:jusrecondo@gmail.com" },
   },
   {
-    question: "¿Con qué frecuencia se actualiza el archivo?",
-    answer: "El archivo se actualiza semanalmente a medida que se reciben nuevas inscripciones y se validan los datos."
-  },
-  {
-    question: "¿Quienes pueden participar?",
-    answer: "Personas de Argentina que forman parte de la comunidad travesti/trans/no binarie que practican alguna disciplina artistica, sin importar su nivel de experiencia o reconocimiento público."
-  },
-   {
     question: "¿Quien lleva adelante el archivo?",
-    answer: "Se trata de un trabajo voluntario sin fines de lucro, llevado adelante por una persona que forma parte de la comunidad travesti/trans/no binarie. Para más información sobre el proyecto, podés seguirnos en: ",
-    link: { text: "Instagram", url: "https://www.instagram.com/completarrrr" }
-},
-];
+    answer:
+      "Se trata de un trabajo voluntario sin fines de lucro, llevado adelante por una persona que forma parte de la comunidad travesti/trans/no binarie. Para más información sobre el proyecto, podés seguirnos en: ",
+    link: { text: "Instagram", url: "https://www.instagram.com/completarrrr" },
+  },
+]
 
 export default function FAQsPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggleIndex = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+    setOpenIndex(openIndex === index ? null : index)
+  }
 
   return (
     <div className="w-180 max-w-full mx-auto p-6">
@@ -73,8 +80,8 @@ export default function FAQsPage() {
         ))}
       </div>
       <div className="mt-4">
-        <BackBtn />   
+        <BackBtn />
       </div>
     </div>
-  );
+  )
 }
