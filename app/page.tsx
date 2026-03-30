@@ -1,27 +1,14 @@
-'use client'
 import { getArtists } from "@/lib/sheets"
+import { Artist } from "@/lib/types"
 import { ArtistGrid } from "@/components/ArtistsGrid"
 import { Loader } from "@/components/Loader"
 import { DrawerMenu } from "@/components/DrawerMenu"
 import { shuffle } from "@/lib/utils"
-import { useArtistStore } from "@/stores/artistsStore"
-import { useEffect, useState } from "react"
 
+export default async function Home() {
+  const artists: Artist[] = await getArtists()
 
-export default function Home() {
-  const setArtists = useArtistStore((state) => state.setArtists);
-  const artists = useArtistStore((state) => state.artists)
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getArtists().then((fetched) => {
-      const shuffled = shuffle(fetched);
-      setArtists(shuffled);
-      setLoading(false);
-    });
-  }, [setArtists]);
-
-  if (loading) return <Loader />;
+  const shuffledArtists = shuffle(artists);
 
   return (
     <main className="px-3 md:px-6 py-6">
@@ -34,7 +21,7 @@ export default function Home() {
       </header>
 
       {
-        !artists.length ? <Loader /> : <ArtistGrid artists={artists} />
+        !artists.length ? <Loader /> : <ArtistGrid artists={shuffledArtists} />
       }
 
     </main>

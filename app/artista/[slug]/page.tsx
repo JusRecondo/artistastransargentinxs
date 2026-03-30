@@ -1,18 +1,35 @@
-import { ArtistImage } from "@/components/ArtistImage";
-import { BackBtn } from "@/components/BackBtn";
-import { getArtists } from "@/lib/sheets";
-import { Artist } from "@/lib/types";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+"use client"
 
-interface Props {
-  params: { slug: string };
-}
+import { ArtistImage } from "@/components/ArtistImage"
+import { BackBtn } from "@/components/BackBtn"
+import { Loader } from "@/components/Loader"
+import { getArtists } from "@/lib/sheets"
+import { Artist } from "@/lib/types"
+import { useArtistStore } from "@/stores/artistsStore"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { useParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
-export default async function ArtistPage({ params }: Props) {
-  const { slug } = await params;
-  const artists = await getArtists();
-  const artist = artists.find((a) => a.slug === slug);
+export default function ArtistPage() {
+  const { slug } = useParams();
+  const getArtistBySlug = useArtistStore((state) => state.getArtistBySlug);
+  const [artist, setArtist] = useState<Artist | undefined>(() => getArtistBySlug(slug!.toString()));
+  const [loading, setLoading] = useState(!artist);
+
+  useEffect(() => {
+    if (!artist) {
+      getArtists().then((allArtists) => {
+        const validArtists: Artist[] = allArtists.filter((a) => a.visible);
+        const store = useArtistStore.getState();
+        store.setArtists(validArtists); // setear en Zustand
+        setArtist(validArtists.find((a) => a.slug === slug!) || undefined);
+        setLoading(false);
+      });
+    }
+  }, [artist, slug]);
+
+  if(loading) return <Loader />
 
   if (!artist) return notFound();
 
@@ -64,9 +81,4 @@ export default async function ArtistPage({ params }: Props) {
       </div>
     </main>
   );
-}
-
-export async function generateStaticParams() {
-  const artists: Artist[] = await getArtists();
-  return artists.map((a) => ({ slug: a.slug }));
 }
