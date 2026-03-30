@@ -29,7 +29,7 @@ const faqs: FAQItem[] = [
       "El archivo se actualiza semanalmente a medida que se reciben nuevas inscripciones y se validan los datos.",
   },
   {
-    question: "¿Puedo editar la información de un artista existente?",
+    question: "¿Puedo editar o eliminar mi información del archivo?",
     answer: "Sí, escribinos un email a: ",
     link: { text: "Contacto", url: "mailto:jusrecondo@gmail.com" },
   },
@@ -37,7 +37,7 @@ const faqs: FAQItem[] = [
     question: "¿Quien lleva adelante el archivo?",
     answer:
       "Se trata de un trabajo voluntario sin fines de lucro, llevado adelante por una persona que forma parte de la comunidad travesti/trans/no binarie. Para más información sobre el proyecto, podés seguirnos en: ",
-    link: { text: "Instagram", url: "https://www.instagram.com/completarrrr" },
+    link: { text: "Instagram", url: "https://www.instagram.com/artistastransargentinxs" },
   },
 ]
 
