@@ -50,7 +50,7 @@ export default function ArtistPage() {
 
           <div className="mt-6 flex flex-wrap gap-2">
             {artist.disciplinas.map((d: string) => (
-              <span key={d} className="text-xs border px-2 py-1 rounded-full">
+              <span key={d} className="text-xs border px-2 py-1 rounded-full hover:bg-white/50 transition cursor-pointer">
                 {d}
               </span>
             ))}

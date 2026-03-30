@@ -18,7 +18,7 @@ export function ArtistGrid({ artists }: Props) {
   }, [artists, setArtists])
 
   return (
-    <div className="columns-2 md:columns-3 lg:columns-5 gap-3 space-y-3 artist-grid">
+    <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 space-y-3 artist-grid">
       {artists.map((artist) => (
         <ArtistCard key={artist.id} artist={artist} />
       ))}

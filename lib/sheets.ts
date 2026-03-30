@@ -51,7 +51,7 @@ export async function getArtists(): Promise<Artist[]> {
   const artists: Artist[] = rows.map((row: any) => {
     const c = row.c || []
 
-    const id = cleanValue(c[10]?.v)
+    const id = cleanValue(c[11]?.v)
     const nombre = cleanValue(c[1]?.v)
     const pronombres = cleanValue(c[2]?.v)
     const foto = cleanValue(c[3]?.v)
@@ -60,7 +60,7 @@ export async function getArtists(): Promise<Artist[]> {
     const link1 = cleanValue(c[6]?.v)
     const link2 = cleanValue(c[7]?.v)
     const link3 = cleanValue(c[8]?.v)
-    const visibleRaw = cleanValue(c[9]?.v)
+    const visibleRaw = cleanValue(c[10]?.v)
 
     return {
       id: id || "",

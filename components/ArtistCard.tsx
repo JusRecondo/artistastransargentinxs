@@ -13,7 +13,7 @@ export function ArtistCard({ artist }: Props) {
       href={`/artista/${artist.slug}`}
       className="group block break-inside-avoid artist-card"
     >
-      <div className="relative overflow-hidden rounded-xl">
+      <div className="relative overflow-hidden rounded-xl h-full">
         <ArtistImage src={artist.foto_url} alt={artist.nombre} nombre={artist.nombre} />
 
         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-black/20 opacity-0 group-hover:opacity-100 transition duration-300" />
