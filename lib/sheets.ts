@@ -1,27 +1,99 @@
+import { Artist } from "./types"
+import { slugify, transformImageUrl } from "./utils"
+
 const SHEET_URL =
   "https://docs.google.com/spreadsheets/d/1te0NmnNwIDceGfjWRSSxKkoJZW3C3fkU-3K7KGd_Q64/gviz/tq?tqx=out:json"
 
-export async function getArtists() {
+function cleanValue(value: any) {
+  if (value === null || value === undefined) return null
+
+  if (typeof value === "string") {
+    const trimmed = value.trim()
+
+    if (
+      trimmed === "" ||
+      trimmed === "#REF!" ||
+      trimmed === "#ERROR!"
+    ) {
+      return null
+    }
+
+    return trimmed
+  }
+
+  return value
+}
+
+function isValidArtist(a: Artist) {
+  const hasValidId =
+    typeof a.id === "string" &&
+    a.id.length > 0 &&
+    !a.id.includes("#")
+
+  const hasNombre =
+    typeof a.nombre === "string" &&
+    a.nombre.trim().length > 0
+
+  const hasFoto =
+    typeof a.foto_url === "string" &&
+    a.foto_url.startsWith("http")
+
+  return hasValidId && hasNombre && hasFoto
+}
+
+export async function getArtists(): Promise<Artist[]> {
   const res = await fetch(SHEET_URL, { cache: "no-store" })
   const text = await res.text()
 
   const json = JSON.parse(text.substring(47).slice(0, -2))
   const rows = json.table.rows
 
-  const artists = rows.map((row: any, index: number) => {
-    const c = row.c
+  const artists: Artist[] = rows.map((row: any) => {
+    const c = row.c || []
+
+    const id = cleanValue(c[10]?.v)
+    const nombre = cleanValue(c[1]?.v)
+    const pronombres = cleanValue(c[2]?.v)
+    const foto = cleanValue(c[3]?.v)
+    const presentacion = cleanValue(c[4]?.v)
+    const disciplinasRaw = cleanValue(c[5]?.v)
+    const link1 = cleanValue(c[6]?.v)
+    const link2 = cleanValue(c[7]?.v)
+    const link3 = cleanValue(c[8]?.v)
+    const visibleRaw = cleanValue(c[9]?.v)
 
     return {
-      id: String(index),
-      nombre: c[1]?.v || "",
-      pronombres: c[2]?.v || "",
-      foto_url: c[3]?.v || "",
-      presentacion: c[4]?.v || "",
-      disciplinas: c[5]?.v?.split(",") || [],
-      links: [c[6]?.v, c[7]?.v, c[8]?.v].filter(Boolean),
-      visible: c[9]?.v === "TRUE",
+      id: id || "",
+
+      slug: nombre ? slugify(nombre) : "",
+
+      nombre: nombre || "",
+      pronombres: pronombres || "",
+      foto_url: transformImageUrl(foto || ""),
+
+      presentacion: presentacion || "",
+
+      disciplinas: disciplinasRaw
+        ? disciplinasRaw.split(",").map((d: string) => d.trim())
+        : [],
+
+      links: [link1, link2, link3].filter(Boolean) as string[],
+
+      visible:
+        visibleRaw === true ||
+        visibleRaw === "TRUE" ||
+        visibleRaw === "true",
     }
   })
 
-  return artists
+  const validArtists = artists.filter(
+    (a) => isValidArtist(a) && a.visible
+  )
+
+  return validArtists
+}
+
+export async function getArtistBySlug(slug: string) {
+  const artists = await getArtists()
+  return artists.find((a) => a.slug === slug)
 }

@@ -1,9 +1,27 @@
-import Image from "next/image";
+import { getArtists } from "@/lib/sheets"
+import { ArtistCard } from "@/components/ArtistCard"
+import { shuffle } from "@/lib/utils"
+import { Artist } from "@/lib/types"
+import { ArtistGrid } from "@/components/ArtistsGrid"
+import Loader from "@/components/Loader"
 
-export default function Home() {
+export default async function Home() {
+  const artists: Artist[] = await getArtists()
+  const shuffled = shuffle([...artists])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      HOLA
-    </div>
-  );
+    <main className="px-3 md:px-6 py-6">
+      
+      <header className="mb-8">
+        <h1 className="text-2xl md:text-4xl font-semibold">
+          Artistas Vivo de Artistas Trans Argentinxs
+        </h1>
+      </header>
+
+      {
+        !artists.length ? <Loader /> : <ArtistGrid artists={shuffled} />
+      }
+
+    </main>
+  )
 }
