@@ -6,8 +6,7 @@ interface SearchState {
   filters: Record<string, any>;
   setSearchQuery: (query: string) => void;
   setFilter: (filterName: string, value: any) => void;
-  triggerSearch: () => void;
-  resetSearch: () => void;
+  resetFilters: () => void;
 }
 
 export const useSearchStore = create<SearchState>((set, get) => ({
@@ -18,8 +17,8 @@ export const useSearchStore = create<SearchState>((set, get) => ({
     set((state) => ({
       filters: { ...state.filters, [filterName]: value },
     })),
-  triggerSearch: async () => {
-    const state = useSearchStore.getState(); 
+  resetFilters: () => {
+    set({ filters: {} })
+    set({ searchQuery: '' })
   },
-  resetSearch: () => set({ searchQuery: '' }),
 }));

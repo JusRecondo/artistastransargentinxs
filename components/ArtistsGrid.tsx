@@ -14,10 +14,12 @@ export function ArtistGrid({ artists }: Props) {
   const setArtists = useArtistStore((state) => state.setArtists)
   const query = useSearchStore((state) => state.searchQuery)
   const filters = useSearchStore((state) => state.filters)
+  const resetFilters = useSearchStore((state) => state.resetFilters)
 
   useEffect(() => {
+    resetFilters()
     setArtists(artists)
-  }, [artists, setArtists])
+  }, [artists, setArtists, resetFilters])
 
   const searchedArtists = useMemo(() => {
     return artists.filter((item) =>

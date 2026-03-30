@@ -9,19 +9,16 @@ export function DrawerMenu() {
   const [open, setOpen] = useState(false)
   const searchQuery = useSearchStore((state) => state.searchQuery);
   const setSearchQuery = useSearchStore((state) => state.setSearchQuery);
-  const triggerSearch = useSearchStore((state) => state.triggerSearch);
   const setFilter = useSearchStore((state) => state.setFilter)
   const filter = useSearchStore((state) => state.filters.disciplina)
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    triggerSearch();
     setSearchQuery(e.target.value);
   }
 
   const handleChangeFilter = (filterName: string, value: string) => {
     setFilter(filterName, value);
     console.log("Filter set:", filterName, value);
-    triggerSearch();
   }
 
 
