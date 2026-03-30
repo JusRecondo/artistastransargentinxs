@@ -1,5 +1,4 @@
 import { getArtists } from "@/lib/sheets"
-import { ArtistCard } from "@/components/ArtistCard"
 import { shuffle } from "@/lib/utils"
 import { Artist } from "@/lib/types"
 import { ArtistGrid } from "@/components/ArtistsGrid"

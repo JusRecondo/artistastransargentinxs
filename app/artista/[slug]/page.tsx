@@ -1,5 +1,6 @@
 "use client"
 
+import ArtistImage from "@/components/ArtistImage"
 import BackBtn from "@/components/BackBtn"
 import Loader from "@/components/Loader"
 import { getArtists } from "@/lib/sheets"
@@ -35,7 +36,7 @@ export default function ArtistPage() {
     <main className="px-4 py-8 md:px-8">
       <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
         <div className="overflow-hidden rounded-2xl">
-          <img src={artist.foto_url} className="w-full h-full object-cover" />
+          <ArtistImage src={artist.foto_url} alt={artist.nombre} nombre={artist.nombre} />
         </div>
 
         <div className="flex flex-col justify-center">
