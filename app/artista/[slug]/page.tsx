@@ -6,6 +6,7 @@ import { Loader } from "@/components/Loader"
 import { getArtists } from "@/lib/sheets"
 import { Artist } from "@/lib/types"
 import { useArtistStore } from "@/stores/artistsStore"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -49,17 +50,17 @@ export default function ArtistPage() {
           <p className="mt-6">{artist.presentacion}</p>
 
           <div className="mt-6 flex flex-wrap gap-2">
-            {artist.disciplinas.map((d: string) => (
-              <span key={d} className="text-xs border px-2 py-1 rounded-full hover:bg-white/50 transition cursor-pointer">
+             {artist.disciplinas.map((d: string) => (
+              <Link key={d} href={`/?disciplina=${d}`} className="text-xs border px-2 py-1 rounded-full hover:bg-white/50 transition cursor-pointer">
                 {d}
-              </span>
+              </Link>
             ))}
           </div>
 
           <div className="mt-6 flex flex-col gap-2">
-            {artist.links.map((link: string) => (
+            {artist.links.map((link: string, index: number) => (
               <a
-                key={link}
+                key={`link-${index}`}
                 href={link}
                 target="_blank"
                 className="underline text-sm"

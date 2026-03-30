@@ -2,7 +2,8 @@
 
 import { disciplinas } from "@/lib/const"
 import { useSearchStore } from "@/stores/searchStore"
-import { useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 import { FaSliders, FaX } from "react-icons/fa6"
 
 export function DrawerMenu() {
@@ -12,15 +13,24 @@ export function DrawerMenu() {
   const setFilter = useSearchStore((state) => state.setFilter)
   const filter = useSearchStore((state) => state.filters.disciplina)
 
+  const searchParams = useSearchParams()
+  const urlFilter = searchParams.get('disciplina') || ''
+ 
+  useEffect(() => { 
+    if (urlFilter) {
+      setFilter("disciplina", urlFilter)
+    } else {
+      setFilter("disciplina", "")
+    }
+  }, [urlFilter])
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }
 
   const handleChangeFilter = (filterName: string, value: string) => {
     setFilter(filterName, value);
-    console.log("Filter set:", filterName, value);
   }
-
 
   return (
     <>

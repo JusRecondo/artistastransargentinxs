@@ -5,6 +5,7 @@ import { ArtistCard } from "./ArtistCard"
 import { Artist } from "@/lib/types"
 import { useArtistStore } from "@/stores/artistsStore"
 import { useSearchStore } from "@/stores/searchStore"
+import { useSearchParams } from "next/navigation"
 
 interface Props {
   artists: Artist[]
@@ -16,10 +17,15 @@ export function ArtistGrid({ artists }: Props) {
   const filters = useSearchStore((state) => state.filters)
   const resetFilters = useSearchStore((state) => state.resetFilters)
 
+  const searchParams = useSearchParams()
+  const urlFilter = searchParams.get('disciplina') || null
+
   useEffect(() => {
-    resetFilters()
+    if(!urlFilter) {
+      resetFilters()
+    }
     setArtists(artists)
-  }, [artists, setArtists, resetFilters])
+  }, [artists, setArtists, resetFilters,urlFilter])
 
   const searchedArtists = useMemo(() => {
     return artists.filter((item) =>
