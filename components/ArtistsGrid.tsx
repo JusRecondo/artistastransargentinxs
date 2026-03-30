@@ -13,22 +13,39 @@ interface Props {
 export function ArtistGrid({ artists }: Props) {
   const setArtists = useArtistStore((state) => state.setArtists)
   const query = useSearchStore((state) => state.searchQuery)
+  const filters = useSearchStore((state) => state.filters)
 
   useEffect(() => {
     setArtists(artists)
   }, [artists, setArtists])
 
-  const filteredArtists = useMemo(() => {
+  const searchedArtists = useMemo(() => {
     return artists.filter((item) =>
       item.nombre.toLowerCase().includes(query.toLowerCase())
     )
   }, [artists, query])
 
+
+  const filteredArtists = useMemo(() => {
+    return searchedArtists.filter((artist) => {
+      if (filters.disciplina && !artist.disciplinas.includes(filters.disciplina)) {
+        return false;
+      }
+      return true;
+    });
+  }, [searchedArtists, filters]);
+
   return (
     <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 space-y-3 artist-grid">
-      {filteredArtists.map((artist) => (
-        <ArtistCard key={artist.id} artist={artist} />
-      ))}
+      {filteredArtists.length > 0 ? (
+        filteredArtists.map((artist) => (
+          <ArtistCard key={artist.id} artist={artist} />
+        ))
+      ) : (
+        <p className="text-center text-gray-700 col-span-full">
+          No se encontraron artistas.
+        </p>
+      )}
     </div>
   )
 }

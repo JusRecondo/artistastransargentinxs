@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 interface SearchState {
   searchQuery: string;
-  filters: {},
+  filters: Record<string, any>;
   setSearchQuery: (query: string) => void;
   setFilter: (filterName: string, value: any) => void;
   triggerSearch: () => void;
@@ -20,7 +20,6 @@ export const useSearchStore = create<SearchState>((set, get) => ({
     })),
   triggerSearch: async () => {
     const state = useSearchStore.getState(); 
-    console.log("Searching for:", state.searchQuery);
   },
   resetSearch: () => set({ searchQuery: '' }),
 }));

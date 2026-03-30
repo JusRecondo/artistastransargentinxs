@@ -10,11 +10,21 @@ export function DrawerMenu() {
   const searchQuery = useSearchStore((state) => state.searchQuery);
   const setSearchQuery = useSearchStore((state) => state.setSearchQuery);
   const triggerSearch = useSearchStore((state) => state.triggerSearch);
+  const setFilter = useSearchStore((state) => state.setFilter)
+  const filter = useSearchStore((state) => state.filters.disciplina)
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     triggerSearch();
     setSearchQuery(e.target.value);
   }
+
+  const handleChangeFilter = (filterName: string, value: string) => {
+    setFilter(filterName, value);
+    console.log("Filter set:", filterName, value);
+    triggerSearch();
+  }
+
+
   return (
     <>
       {/* Botón de apertura */}
@@ -38,33 +48,34 @@ export function DrawerMenu() {
           <FaX />
         </button>
 
-        <div className="flex flex-col gap-4 mt-4 font-bold text-lg">
+        <div className="flex flex-col gap-4 mt-4 font-bold text-lg ">
           {/* Búsqueda */}
+          <label htmlFor="search">Buscar por nombre:</label>
           <input
+            id="search"
             type="text"
-            placeholder="Buscar por nombre..."
+            placeholder="Ingresa el nombre del artista"
             className="border-2 border-black p-2 font-bold focus:outline-none"
             value={searchQuery}
             onChange={handleSearchChange}
           />
 
           {/* Filtros por disciplina */}
-          <h2 className="text-xl border-b-2 border-black pb-1">
+          <h2 className="text-xl pb-1">
             Filtrar por disciplina
           </h2>
-          {disciplinas.map((disc) => (
-            <label
-              key={disc}
-              className="flex items-center gap-2 border-2 border-black p-2 hover:bg-gray-200 cursor-pointer"
+            <select
+            value={filter || ""}
+            onChange={(e) => handleChangeFilter("disciplina", e.target.value)}
+            className="border-2 border-black p-2 hover:bg-gray-200 cursor-pointer font-bold focus:outline-none"
             >
-              <input
-                type="checkbox"
-                checked={false}
-                onChange={() => console.log(`Toggling ${disc}`)}
-              />
+            <option value="">Todas</option>
+            {disciplinas.map((disc) => (
+              <option key={disc} value={disc}>
               {disc}
-            </label>
-          ))}
+              </option>
+            ))}
+            </select>
         </div>
       </div>
     </>
