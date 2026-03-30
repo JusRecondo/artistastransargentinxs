@@ -6,26 +6,26 @@ interface ArtistState {
   artists: Artist[];
   setArtists: (artists: Artist[]) => void;
   getArtistBySlug: (slug: string) => Artist | undefined;
-  filters: string;
-  setFilters: (filters: string) => void;
-  filteredArtists: (filters: string) => Artist[];
+  searchQuery: string;
+  filters: {},
+  setSearchQuery: (query: string) => void;
+  setFilter: (filterName: string, value: any) => void;
+  triggerSearch: () => void;
 }
 
 export const useArtistStore = create<ArtistState>((set, get) => ({
   artists: [],
   setArtists: (artists) => {set({ artists })},
   getArtistBySlug: (slug) => get().artists.find((a) => a.slug === slug),
-  filters: '',
-  setFilters: (filters: string) => set({ filters }),
-  filteredArtists: (filters: string) => {
-    const { artists } = get();
-    return artists.filter((artist) => {
-      const matchesSearch = filters 
-        ? artist.nombre.toLowerCase().includes(filters.toLowerCase())
-        : true;
-      /* const matchesDisciplina = filters.disciplinas.length
-        ? filters.disciplinas.includes(artist.disciplinas)
-        : true; */
-      return matchesSearch;
-    })}
+  searchQuery: '',
+  filters: {},
+  setSearchQuery: (query: string) => set({ searchQuery: query }),
+  setFilter: (filterName, value) =>
+    set((state) => ({
+      filters: { ...state.filters, [filterName]: value },
+    })),
+  triggerSearch: async () => {
+    const state = useArtistStore.getState(); 
+    console.log("Searching for:", state.searchQuery, state.filters);
+  },
 }));

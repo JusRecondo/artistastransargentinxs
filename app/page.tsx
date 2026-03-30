@@ -3,9 +3,12 @@ import { Artist } from "@/lib/types"
 import { ArtistGrid } from "@/components/ArtistsGrid"
 import { Loader } from "@/components/Loader"
 import { DrawerMenu } from "@/components/DrawerMenu"
+import { shuffle } from "@/lib/utils"
 
 export default async function Home() {
   const artists: Artist[] = await getArtists()
+
+  const shuffledArtists = shuffle(artists);
 
   return (
     <main className="px-3 md:px-6 py-6">
@@ -18,7 +21,7 @@ export default async function Home() {
       </header>
 
       {
-        !artists.length ? <Loader /> : <ArtistGrid artists={artists} />
+        !artists.length ? <Loader /> : <ArtistGrid artists={shuffledArtists} />
       }
 
     </main>

@@ -1,18 +1,19 @@
 "use client"
 
 import { disciplinas } from "@/lib/const"
-import { useArtistStore } from "@/stores/artistsStore"
+import { useSearchStore } from "@/stores/searchStore"
 import { useState } from "react"
 import { FaSliders, FaX } from "react-icons/fa6"
 
 export function DrawerMenu() {
   const [open, setOpen] = useState(false)
-  const setFilters = useArtistStore((state) => state.setFilters)
-  const filters = useArtistStore((state) => state.filters)
+  const searchQuery = useSearchStore((state) => state.searchQuery);
+  const setSearchQuery = useSearchStore((state) => state.setSearchQuery);
+  const triggerSearch = useSearchStore((state) => state.triggerSearch);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-    setFilters(e.target.value)
+    triggerSearch();
+    setSearchQuery(e.target.value);
   }
   return (
     <>
@@ -26,7 +27,7 @@ export function DrawerMenu() {
 
       {/* Drawer lateral */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white border-l-4 border-black z-50 transform transition-transform duration-300 flex flex-col p-6 gap-4 ${
+        className={`fixed top-0 right-0 h-full w-80 overflow-y-auto bg-white border-l-4 border-black z-50 transform transition-transform duration-300 flex flex-col p-6 gap-4 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -43,7 +44,7 @@ export function DrawerMenu() {
             type="text"
             placeholder="Buscar por nombre..."
             className="border-2 border-black p-2 font-bold focus:outline-none"
-            value={filters}
+            value={searchQuery}
             onChange={handleSearchChange}
           />
 
