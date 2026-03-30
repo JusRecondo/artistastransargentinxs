@@ -4,6 +4,7 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "A.V.A.T.A.R.",
   description: "Archivo Vivo de Artistas Trans Argentinxs",
+  authors: [{ name: "Jus Recondo" }]
 }
 
 export default function RootLayout({
