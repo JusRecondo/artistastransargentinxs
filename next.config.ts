@@ -1,9 +1,15 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-    images: {
-    domains: ["drive.google.com", "lh3.googleusercontent.com", "https://placehold.net"],
+  output: "export",
+  images: {
+    domains: [
+      "drive.google.com",
+      "lh3.googleusercontent.com",
+      "https://placehold.net",
+    ],
+    unoptimized: true,
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
