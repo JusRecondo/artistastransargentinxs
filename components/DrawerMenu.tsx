@@ -29,6 +29,15 @@ export function DrawerMenu() {
   }
 
   const handleChangeFilter = (filterName: string, value: string) => {
+    if (value) {
+      const params = new URLSearchParams(searchParams);
+      params.set(filterName, value);
+      window.history.pushState(null, '', `?${params.toString()}`);
+    } else {
+      const params = new URLSearchParams(searchParams);
+      params.delete(filterName);
+      window.history.pushState(null, '', params.toString() ? `?${params.toString()}` : window.location.pathname);
+    }
     setFilter(filterName, value);
   }
 
