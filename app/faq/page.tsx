@@ -79,6 +79,9 @@ export default function FAQsPage() {
           </div>
         ))}
       </div>
+      <div className="mt-4 border-2 border-black p-2">
+        <p>Por dudas, consultas o sugerencias escribinos a <a href="mailto:jusrecondo@gmail.com" target="_blank" className="home-link">este email</a> de contacto. Responderemos a la brevedad.</p>
+      </div>
       <div className="mt-4">
         <BackBtn />
       </div>
