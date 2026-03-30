@@ -1,8 +1,10 @@
 import { Artist } from "./types"
 import { slugify, transformImageUrl } from "./utils"
 
+const SHEET_ID = process.env.ARTISTS_SPREADSHEET_ID
+
 const SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/1te0NmnNwIDceGfjWRSSxKkoJZW3C3fkU-3K7KGd_Q64/gviz/tq?tqx=out:json"
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`
 
 function cleanValue(value: any) {
   if (value === null || value === undefined) return null
