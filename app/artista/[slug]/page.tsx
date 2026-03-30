@@ -1,5 +1,6 @@
 "use client"
 
+import BackBtn from "@/components/BackBtn"
 import Loader from "@/components/Loader"
 import { getArtists } from "@/lib/sheets"
 import { Artist } from "@/lib/types"
@@ -9,10 +10,6 @@ import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function ArtistPage() {
-  /* const { slug } = useParams()
-  const getArtistBySlug = useArtistStore((state) => state.getArtistBySlug)
-  const artist = getArtistBySlug(slug!.toString())
- */
   const { slug } = useParams();
   const getArtistBySlug = useArtistStore((state) => state.getArtistBySlug);
   const [artist, setArtist] = useState<Artist | undefined>(() => getArtistBySlug(slug!.toString()));
@@ -71,6 +68,7 @@ export default function ArtistPage() {
             ))}
           </div>
         </div>
+        <BackBtn />
       </div>
     </main>
   )

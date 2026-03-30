@@ -14,7 +14,7 @@ export default async function Home() {
       
       <header className="mb-8">
         <h1 className="text-2xl md:text-4xl font-semibold">
-          Artistas Vivo de Artistas Trans Argentinxs
+          Archivo Vivo de Artistas Trans Argentinxs
         </h1>
       </header>
 
