@@ -22,7 +22,7 @@ export default async function Home() {
         </h1>
         <p className="text-gray-700 mt-2">
           {" "}
-          Sitio en construccion con data provisoria. Para sumarte al archivo
+          Sitio en construccion. Para sumarte al archivo
           completa el{" "}
           <a href="https://forms.gle/kZC8AedsxaZWXko38" className="home-link" target="_blank" rel="noopener noreferrer">
             Formulario de registro
